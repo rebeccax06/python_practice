@@ -1,42 +1,51 @@
+from collections import Counter
+#https://www.geeksforgeeks.org/python-counter-objects-elements/#
 print("Welcome to my prime factorization program!")
+
+def is_prime(n):
+    if n<=1:
+        return False
+    if n ==2:
+        return True
+    if n % 2 ==0:
+        return False
+    
+    for i in range(3, n//2, 2 ):
+        if n%i == 0:
+            return False
+    
+    return True
+
+def exponents(n):
+    x = Counter(n)
+    list_count = []
+    for y in range(len(x)):
+        list_count.append(str(list(x.keys())[y]) + "^" + str(list(x.values())[y]) )
+        
+    return list_count
 
 def prime_factorization(n):
     factors = []
-    composite = True
     
     if n<=1:
-        return "not prime"
-    for i in range(2, n):
-        if n%i == 0:
-            factors.append(i)  
-    print("initial", factors)    
-    prime_factors = [] 
-    while composite:
-        composite = False
-        for x in factors:
-            for i in range(2,x):
-                if x%i == 0:
-                    prime_factors.append(i)
-                    print("prime", x , " i: ", i)
-                    composite = True
+        return "error, please enter a value greater than 1"
+    while True:
+        # print(n)
+        if n == 0 or n == 1:
+            break
+        for i in range(2, n+1):
+            if n%i == 0:
+                if(is_prime(i)):
+                    factors.append(i) 
+                    n = n//i 
+                    break
 
-    unique  = list(set(prime_factors))
-    return unique 
+    # print("prime", factors)
+    factors = exponents(factors) 
+    return factors
+    # unique  = list(set(prime_factors))
+    # return unique 
     
-    # prime_factors.sort()
-    # print(prime_factors)
-    # count = 1;
-    # prime_with_count = []
-    # for x in range(len(prime_factors)):
-    #     if x ==0:
-    #         pass
-    #     else: 
-    #         while prime_factors[x] == prime_factors[x-1]:
-    #             x+-1
-    #             count += 1
-    #         prime_with_count.append(prime_factors[x-1], "^",count)
-
-    # return prime_with_count
 
 input_number = int(input("Enter a number to find its prime factors: "))
 print(prime_factorization(input_number))
