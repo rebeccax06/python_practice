@@ -1,0 +1,32 @@
+print("Welcome to my next prime number program!")
+prime = 2;
+count = 1;
+
+def isPrime(n):
+    if n<=1:
+        return False
+    if n ==2:
+        return True
+    if n % 2 ==0:
+        return False
+    
+    for i in range(3, n//2, 2 ):
+        if n%i == 0:
+            return False
+    
+    return True
+
+def findPrime(n):
+    while not isPrime(n):
+        n += 1
+    return n
+
+while True:
+    print("\n\nPrime", count, "is", prime)
+
+    continue_program = input("Do you want to continue? (yes/no): ").lower()
+    if continue_program.startswith("y"):
+        count += 1
+        prime = findPrime(prime + 1)
+    else:
+        break
